@@ -71,7 +71,7 @@ func _physics_process(delta):
 
 		hv = hdir * hspeed
 
-		var mesh_xform = get_node("Armature").get_transform()
+		var mesh_xform = get_node("godot chan").get_transform()
 		var facing_mesh = -mesh_xform.basis[0].normalized()
 		facing_mesh = (facing_mesh - Vector3.UP * facing_mesh.dot(Vector3.UP)).normalized()
 
@@ -79,7 +79,7 @@ func _physics_process(delta):
 			facing_mesh = adjust_facing(facing_mesh, dir, delta, 1.0 / hspeed * TURN_SPEED, Vector3.UP)
 		var m3 = Basis(-facing_mesh, Vector3.UP, -facing_mesh.cross(Vector3.UP).normalized()).scaled(CHAR_SCALE)
 
-		get_node("Armature").set_transform(Transform(m3, mesh_xform.origin))
+		get_node("godot chan").set_transform(Transform(m3, mesh_xform.origin))
 
 		if not jumping and jump_attempt:
 			vv = JUMP_VELOCITY
@@ -114,12 +114,12 @@ func _physics_process(delta):
 			shoot_blend = 0
 
 	if shoot_attempt and not prev_shoot:
-		shoot_blend = SHOOT_TIME
-		var bullet = preload("res://player/bullet/bullet.tscn").instance()
-		bullet.set_transform(get_node("Armature/Bullet").get_global_transform().orthonormalized())
-		get_parent().add_child(bullet)
-		bullet.set_linear_velocity(get_node("Armature/Bullet").get_global_transform().basis[2].normalized() * BULLET_SPEED)
-		bullet.add_collision_exception_with(self) # Add it to bullet.
+		#shoot_blend = SHOOT_TIME
+		#var bullet = preload("res://player/bullet/bullet.tscn").instance()
+		#bullet.set_transform(get_node("Armature/Bullet").get_global_transform().orthonormalized())
+		#get_parent().add_child(bullet)
+		#bullet.set_linear_velocity(get_node("Armature/Bullet").get_global_transform().basis[2].normalized() * BULLET_SPEED)
+		#bullet.add_collision_exception_with(self) # Add it to bullet.
 		get_node("SoundShoot").play()
 
 	prev_shoot = shoot_attempt
