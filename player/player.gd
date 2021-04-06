@@ -52,7 +52,9 @@ func _physics_process(delta):
 
 	var jump_attempt = Input.is_action_pressed("jump")
 	var shoot_attempt = Input.is_action_pressed("shoot")
-
+	
+	move_and_slide(gravity*delta, -gravity.normalized());
+	
 	if is_on_floor():
 		var sharp_turn = hspeed > 0.1 and rad2deg(acos(dir.dot(hdir))) > SHARP_TURN_THRESHOLD
 
@@ -124,8 +126,8 @@ func _physics_process(delta):
 
 	prev_shoot = shoot_attempt
 
-	if is_on_floor():
-		$AnimationTree["parameters/walk/blend_amount"] = hspeed / MAX_SPEED
+	#if is_on_floor():
+	$AnimationTree["parameters/walk/blend_amount"] = hspeed / MAX_SPEED	
 
 	$AnimationTree["parameters/state/current"] = anim
 	$AnimationTree["parameters/air_dir/blend_amount"] = clamp(-linear_velocity.y / 4 + 0.5, 0, 1)
